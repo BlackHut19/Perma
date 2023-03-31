@@ -16,4 +16,12 @@ public class AuthenticationResponse {
   public static AuthenticationResponse notValidEmail() {
     return new AuthenticationResponse("Invalid email address");
   }
+
+  public static AuthenticationResponse confirmedEmail() {
+    return new AuthenticationResponse("Email has been confirmed");
+  }
+
+  public static AuthenticationResponse confirmationEmailSend() {
+    return new AuthenticationResponse("Confirmation email has been send");
+  }
 }

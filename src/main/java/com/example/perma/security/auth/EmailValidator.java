@@ -10,11 +10,7 @@ public class EmailValidator  implements Predicate<String> {
 
     @Override
     public boolean test(String s) {
-        return false;
-    }
-
-    public boolean valid(String email){
-        return Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches();
+        return Pattern.compile("^(.+)@(\\S+)$").matcher(s).matches();
     }
 
 }

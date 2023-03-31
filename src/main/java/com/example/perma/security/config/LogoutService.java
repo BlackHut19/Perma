@@ -1,6 +1,8 @@
 package com.example.perma.security.config;
 
+import com.example.perma.security.token.Token;
 import com.example.perma.security.token.TokenRepository;
+import com.example.perma.security.token.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
-  private final TokenRepository tokenRepository;
+  private final TokenService tokenService;
 
   @Override
   public void logout(
@@ -27,12 +29,10 @@ public class LogoutService implements LogoutHandler {
       return;
     }
     jwt = authHeader.substring(7);
-    var storedToken = tokenRepository.findByToken(jwt)
-        .orElse(null);
+    Token storedToken = tokenService.getTokenByToken(jwt).orElse(null);
     if (storedToken != null) {
-      storedToken.setExpired(true);
       storedToken.setRevoked(true);
-      tokenRepository.save(storedToken);
+      tokenService.save(storedToken);
       SecurityContextHolder.clearContext();
     }
   }

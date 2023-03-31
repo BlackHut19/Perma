@@ -9,33 +9,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Entity
 public class Token {
 
   @Id
   @GeneratedValue
-  public Integer id;
+  private Integer id;
 
   @Column(unique = true)
-  public String token;
+  private String token;
 
   @Enumerated(EnumType.STRING)
-  public TokenType tokenType = TokenType.BEARER;
+  private TokenType tokenType = TokenType.BEARER;
 
-  public boolean revoked;
-
-  public boolean expired;
+  private LocalDateTime createdAt;
+  private LocalDateTime expiresAt;
+  private Boolean validated;
+  private Boolean revoked;
 
   @ManyToOne
   @JoinColumn(name = "user_id")
-  public User user;
+  private User user;
 }
