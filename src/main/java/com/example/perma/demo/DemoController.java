@@ -1,4 +1,4 @@
-package com.example.perma.security.demo;
+package com.example.perma.demo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

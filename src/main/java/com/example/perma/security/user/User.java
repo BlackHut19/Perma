@@ -1,13 +1,9 @@
 package com.example.perma.security.user;
 
+import com.example.perma.group.Group;
 import com.example.perma.security.token.Token;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -40,6 +36,10 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+
+  @ManyToOne
+  @JoinColumn(name = "group_id")
+  private Group group;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
