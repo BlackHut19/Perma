@@ -1,6 +1,6 @@
-package com.example.perma.group;
+package com.example.perma.day;
 
-import com.example.perma.day.Day;
+import com.example.perma.group.Group;
 import com.example.perma.security.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,22 +15,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_group")
-public class Group {
+@Table(name = "_day")
+public class Day {
 
     @Id
     @GeneratedValue
     private Integer id;
-    private String groupname;
+    private String dayname;
 
-    @OneToMany(mappedBy = "group")
+    @ManyToMany
     private List<User> users;
 
-    @OneToMany(mappedBy = "group")
-    private List<Day> days;
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
 
 }

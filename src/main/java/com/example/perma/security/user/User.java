@@ -1,5 +1,6 @@
 package com.example.perma.security.user;
 
+import com.example.perma.day.Day;
 import com.example.perma.group.Group;
 import com.example.perma.security.token.Token;
 import jakarta.persistence.*;
@@ -40,6 +41,12 @@ public class User implements UserDetails {
   @ManyToOne
   @JoinColumn(name = "group_id")
   private Group group;
+
+  @ManyToMany(mappedBy = "users")
+  private List<Day> days;
+
+  //TODO connect the tables better. Learn about it in a youtube video?.
+
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
