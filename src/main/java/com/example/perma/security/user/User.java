@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,16 +38,19 @@ public class User implements UserDetails {
   private Boolean isEnabled;
 
   @OneToMany(mappedBy = "user")
-  private List<Token> tokens;
+  private Set<Token> tokens;
 
   @ManyToOne
   @JoinColumn(name = "group_id")
   private Group group;
 
-  @ManyToMany(mappedBy = "users")
-  private List<Day> days;
+  @ManyToOne
+  @JoinColumn(name = "requested_group_id")
+  private Group requestedGroup;
 
-  //TODO connect the tables better. Learn about it in a youtube video?.
+  @ManyToMany(mappedBy = "users")
+  private Set<Day> days;
+
 
 
   @Override

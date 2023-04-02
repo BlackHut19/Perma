@@ -32,8 +32,6 @@ public class AuthenticationController {
     return ResponseEntity.ok(service.confirmToken(token));
   }
 
-  //TODO user can make groups that people can join.
-  //TODO people can only join the group if someone accepts their group acceptance request.
 
 
 }

@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,10 +24,13 @@ public class Group {
     private String groupname;
 
     @OneToMany(mappedBy = "group")
-    private List<User> users;
+    private Set<User> users;
 
     @OneToMany(mappedBy = "group")
-    private List<Day> days;
+    private Set<User> requestedUsers;
+
+    @OneToMany(mappedBy = "group")
+    private Set<Day> days;
 
 
 

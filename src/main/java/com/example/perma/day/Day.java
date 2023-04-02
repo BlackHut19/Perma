@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,7 +25,7 @@ public class Day {
     private String dayname;
 
     @ManyToMany
-    private List<User> users;
+    private Set<User> users;
 
     @ManyToOne
     @JoinColumn(name = "group_id")

@@ -52,8 +52,9 @@ public class AuthenticationService {
     String link = "http://localhost:8080/api/v1/auth/confirm?token=" + jwtToken;
     emailSender.send(request.getEmail(), emailService.buildEmail(user.getFirstname(), link));
 
-
-    return AuthenticationResponse.confirmationEmailSend();
+    return AuthenticationResponse.builder()
+            .token(jwtToken)
+            .build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
