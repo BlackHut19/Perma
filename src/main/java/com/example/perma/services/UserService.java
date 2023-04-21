@@ -1,16 +1,12 @@
-package com.example.perma.security.user;
+package com.example.perma.services;
 
-import com.example.perma.group.Group;
-import com.example.perma.group.GroupService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.example.perma.models.Group;
+import com.example.perma.models.User;
+import com.example.perma.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 
@@ -20,7 +16,6 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final GroupService groupService;
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,28 +36,14 @@ public class UserService implements UserDetailsService {
         user.setIsEnabled(true);
     }
 
-    @Transactional
-    public Group createGroup(String username, String groupname){
-        User user = loadUserByUsername(username);
-        if (user.getGroup() != null) throw new IllegalStateException("User already in group");
-        Group group = Group.builder()
-                .groupname(groupname)
-                .build();
-        groupService.save(group);
-        user.setGroup(group);
-        return group;
-    }
 
-    public Group requestGroup(String username, String groupname){
-        User user = loadUserByUsername(username);
-        if (user.getGroup() != null) throw new IllegalStateException("User already in group");
-        Group group = groupService.loadGroupByGroupname(groupname);
-        user.setRequestedGroup(group);
-        return group;
-    }
 
     public List<User> getUsersWithRequestedGroupId(Integer id){
         return userRepository.findUsersByRequestedGroupId(id);
+    }
+
+    public List<User> getUsersWithGroupId(Integer id) {
+        return userRepository.findUsersByGroupId(id);
     }
 
 
@@ -70,5 +51,9 @@ public class UserService implements UserDetailsService {
         user.setRequestedGroup(null);
         user.setGroup(group);
         return user;
+    }
+
+    public User loadUserById(Integer id) {
+        return userRepository.findUserById(id);
     }
 }

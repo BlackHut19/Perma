@@ -1,7 +1,5 @@
-package com.example.perma.group;
+package com.example.perma.models;
 
-import com.example.perma.day.Day;
-import com.example.perma.security.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +17,7 @@ import java.util.Set;
 public class Group {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String groupname;
 

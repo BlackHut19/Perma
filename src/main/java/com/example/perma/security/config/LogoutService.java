@@ -1,7 +1,6 @@
 package com.example.perma.security.config;
 
 import com.example.perma.security.token.Token;
-import com.example.perma.security.token.TokenRepository;
 import com.example.perma.security.token.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

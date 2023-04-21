@@ -1,6 +1,6 @@
 package com.example.perma.security.token;
 
-import com.example.perma.security.user.User;
+import com.example.perma.models.User;
 import jakarta.persistence.*;
 import lombok.*;
 

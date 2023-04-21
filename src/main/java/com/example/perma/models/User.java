@@ -1,21 +1,20 @@
-package com.example.perma.security.user;
+package com.example.perma.models;
 
-import com.example.perma.day.Day;
-import com.example.perma.group.Group;
 import com.example.perma.security.token.Token;
+import com.example.perma.security.user.Role;
 import jakarta.persistence.*;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,10 +22,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
+@DynamicUpdate
 public class User implements UserDetails {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String firstname;
   private String lastname;
@@ -48,7 +48,12 @@ public class User implements UserDetails {
   @JoinColumn(name = "requested_group_id")
   private Group requestedGroup;
 
-  @ManyToMany(mappedBy = "users")
+  @ManyToMany
+  @JoinTable(
+          name = "_users_days",
+          joinColumns =  @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "day_id")
+  )
   private Set<Day> days;
 
 

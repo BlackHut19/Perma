@@ -1,14 +1,11 @@
-package com.example.perma.day;
+package com.example.perma.models;
 
-import com.example.perma.group.Group;
-import com.example.perma.security.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,15 +17,14 @@ import java.util.Set;
 public class Day {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String dayname;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "days")
     private Set<User> users;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
     private Group group;
 
 

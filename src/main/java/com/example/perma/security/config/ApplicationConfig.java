@@ -1,6 +1,6 @@
 package com.example.perma.security.config;
 
-import com.example.perma.security.user.UserRepository;
+import com.example.perma.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,16 +1,14 @@
 package com.example.perma.security.auth;
 
-import com.example.perma.email.EmailSender;
-import com.example.perma.email.EmailService;
+import com.example.perma.models.User;
 import com.example.perma.security.config.JwtService;
+import com.example.perma.security.email.EmailSender;
+import com.example.perma.security.email.EmailService;
 import com.example.perma.security.token.Token;
-import com.example.perma.security.token.TokenRepository;
 import com.example.perma.security.token.TokenService;
 import com.example.perma.security.token.TokenType;
 import com.example.perma.security.user.Role;
-import com.example.perma.security.user.User;
-import com.example.perma.security.user.UserRepository;
-import com.example.perma.security.user.UserService;
+import com.example.perma.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,6 +66,7 @@ public class AuthenticationService {
     String jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
+
     return AuthenticationResponse.builder()
         .token(jwtToken)
         .build();
